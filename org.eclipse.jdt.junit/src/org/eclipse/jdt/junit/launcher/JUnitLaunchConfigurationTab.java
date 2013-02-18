@@ -363,7 +363,7 @@ public class JUnitLaunchConfigurationTab extends AbstractLaunchConfigurationTab 
 
 
 		fFilterLabel= new Label(comp, SWT.NONE);
-		fFilterLabel.setText("Filter:");
+		fFilterLabel.setText(JUnitMessages.JUnitLaunchConfigurationTab_label_filter);
 		GridData gd= new GridData(SWT.FILL, SWT.DEFAULT, false, false);
 		gd.horizontalIndent= 25;
 		fFilterLabel.setLayoutData(gd);
@@ -380,7 +380,7 @@ public class JUnitLaunchConfigurationTab extends AbstractLaunchConfigurationTab 
 
 
 		fContainerIncludeButton= new Button(composite, SWT.RADIO);
-		fContainerIncludeButton.setText("Include");
+		fContainerIncludeButton.setText(JUnitMessages.JUnitLaunchConfigurationTab_checkbox_filter_include);
 		fContainerIncludeButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -388,7 +388,7 @@ public class JUnitLaunchConfigurationTab extends AbstractLaunchConfigurationTab 
 			}
 		});
 		fContainerExcludeButton= new Button(composite, SWT.RADIO);
-		fContainerExcludeButton.setText("Exclude");
+		fContainerExcludeButton.setText(JUnitMessages.JUnitLaunchConfigurationTab_checkbox_filter_exclude);
 		fContainerExcludeButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -408,7 +408,7 @@ public class JUnitLaunchConfigurationTab extends AbstractLaunchConfigurationTab 
 
 
 		fFilterHelpLabel= new Label(comp, SWT.NONE);
-		fFilterHelpLabel.setText("( ; = use as delimiter, * = any string, ? = any character)");
+		fFilterHelpLabel.setText(JUnitMessages.JUnitLaunchConfigurationTab_label_filterDescription);
 		gd= new GridData(SWT.FILL, SWT.DEFAULT, false, false);
 		gd.horizontalIndent= 25;
 		gd.horizontalSpan= 2;

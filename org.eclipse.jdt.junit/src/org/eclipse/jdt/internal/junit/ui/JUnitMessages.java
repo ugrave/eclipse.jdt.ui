@@ -121,6 +121,10 @@ public final class JUnitMessages extends NLS {
 
 	public static String JUnitLaunchConfigurationTab_label_containerTest;
 
+	public static String JUnitLaunchConfigurationTab_label_filter;
+
+	public static String JUnitLaunchConfigurationTab_label_filterDescription;
+
 	public static String JUnitLaunchConfigurationTab_label_keeprunning;
 
 	public static String JUnitLaunchConfigurationTab_label_method;
@@ -139,6 +143,10 @@ public final class JUnitMessages extends NLS {
 	public static String JUnitLaunchConfigurationTab_select_method_title;
 
 	public static String JUnitLaunchConfigurationTab_all_methods_text;
+
+	public static String JUnitLaunchConfigurationTab_checkbox_filter_exclude;
+
+	public static String JUnitLaunchConfigurationTab_checkbox_filter_include;
 
 	public static String JUnitLaunchConfigurationTab_label_test;
 
