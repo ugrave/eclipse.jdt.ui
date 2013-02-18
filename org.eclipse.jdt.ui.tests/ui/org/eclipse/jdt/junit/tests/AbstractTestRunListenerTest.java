@@ -47,7 +47,8 @@ import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfigurationConstants
 public class AbstractTestRunListenerTest extends TestCase {
 
 	public static class TestRunLog {
-		private ArrayList/*<String>*/ fLog;
+		private ArrayList/*<String>*/fLog;
+
 		private boolean fIsDone;
 
 		public TestRunLog() {
@@ -60,7 +61,7 @@ public class AbstractTestRunListenerTest extends TestCase {
 		}
 
 		public synchronized String[] getLog() {
-			return (String[]) fLog.toArray(new String[fLog.size()]);
+			return (String[])fLog.toArray(new String[fLog.size()]);
 		}
 
 		public synchronized void add(String entry) {
@@ -78,6 +79,7 @@ public class AbstractTestRunListenerTest extends TestCase {
 
 
 	private IJavaProject fProject;
+
 	private boolean fLaunchHasTerminated= false;
 
 	protected void setUp() throws Exception {
@@ -85,6 +87,10 @@ public class AbstractTestRunListenerTest extends TestCase {
 		// have to set up an 1.3 project to avoid requiring a 5.0 VM
 		JavaProjectHelper.addRTJar13(fProject);
 		JavaProjectHelper.addVariableEntry(fProject, new Path("JUNIT_HOME/junit.jar"), null, null);
+	}
+
+	protected IJavaProject getProject() {
+		return fProject;
 	}
 
 	protected void tearDown() throws Exception {
@@ -106,10 +112,14 @@ public class AbstractTestRunListenerTest extends TestCase {
 		return aTestCase;
 	}
 
+	protected ILaunchConfiguration createLaunchConfiguration(IJavaElement element) throws CoreException {
+		return TestJUnitLaunchShortcut.createConfiguration(element);
+	}
+
 	protected void launchJUnit(IJavaElement aTest) throws CoreException {
 		ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, null);
 
-		ILaunchManager lm = DebugPlugin.getDefault().getLaunchManager();
+		ILaunchManager lm= DebugPlugin.getDefault().getLaunchManager();
 		lm.removeLaunches(lm.getLaunches());
 		ILaunchesListener2 launchesListener= new ILaunchesListener2() {
 			public void launchesTerminated(ILaunch[] launches) {
@@ -119,6 +129,7 @@ public class AbstractTestRunListenerTest extends TestCase {
 					logLaunch("terminated", launches[i]);
 				}
 			}
+
 			public void launchesRemoved(ILaunch[] launches) {
 				for (int i= 0; i < launches.length; i++) {
 					if (isJUnitLaunch(launches[i]))
@@ -126,14 +137,17 @@ public class AbstractTestRunListenerTest extends TestCase {
 					logLaunch("removed   ", launches[i]);
 				}
 			}
+
 			public void launchesAdded(ILaunch[] launches) {
 				for (int i= 0; i < launches.length; i++)
 					logLaunch("added     ", launches[i]);
 			}
+
 			public void launchesChanged(ILaunch[] launches) {
 				for (int i= 0; i < launches.length; i++)
 					logLaunch("changed   ", launches[i]);
 			}
+
 			private void logLaunch(String action, ILaunch launch) {
 				StringBuffer buf= new StringBuffer();
 				buf.append(System.currentTimeMillis()).append(" ");
@@ -151,7 +165,7 @@ public class AbstractTestRunListenerTest extends TestCase {
 		};
 		lm.addLaunchListener(launchesListener);
 
-		ILaunchConfiguration configuration= TestJUnitLaunchShortcut.createConfiguration(aTest);
+		ILaunchConfiguration configuration= createLaunchConfiguration(aTest);
 		try {
 			configuration.launch(ILaunchManager.RUN_MODE, null);
 			new DisplayHelper() {
@@ -164,19 +178,19 @@ public class AbstractTestRunListenerTest extends TestCase {
 			lm.removeLaunches(lm.getLaunches());
 			configuration.delete();
 		}
-		if (! fLaunchHasTerminated)
+		if (!fLaunchHasTerminated)
 			fail("Launch has not terminated");
 	}
 
 	protected String[] launchJUnit(IJavaElement aTest, final TestRunLog log) throws CoreException {
 		launchJUnit(aTest);
 
-		boolean success= new DisplayHelper(){
+		boolean success= new DisplayHelper() {
 			protected boolean condition() {
 				return log.isDone();
 			}
-		}.waitForCondition(Display.getCurrent(), 15*1000, 100);
-		if (! success)
+		}.waitForCondition(Display.getCurrent(), 15 * 1000, 100);
+		if (!success)
 			log.add("AbstractTestRunListenerTest#launchJUnit(IJavaElement, TestRunLog) timed out");
 		return log.getLog();
 	}

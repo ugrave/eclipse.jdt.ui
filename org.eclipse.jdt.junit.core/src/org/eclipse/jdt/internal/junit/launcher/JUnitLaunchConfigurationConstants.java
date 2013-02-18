@@ -30,44 +30,53 @@ import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
  */
 public class JUnitLaunchConfigurationConstants {
 
-	public static final String MODE_RUN_QUIETLY_MODE = "runQuietly"; //$NON-NLS-1$
+	public static final String MODE_RUN_QUIETLY_MODE= "runQuietly"; //$NON-NLS-1$
+
 	public static final String ID_JUNIT_APPLICATION= "org.eclipse.jdt.junit.launchconfig"; //$NON-NLS-1$
 
-	public static final String ATTR_NO_DISPLAY = JUnitCorePlugin.PLUGIN_ID + ".NO_DISPLAY"; //$NON-NLS-1$
+	public static final String ATTR_NO_DISPLAY= JUnitCorePlugin.PLUGIN_ID + ".NO_DISPLAY"; //$NON-NLS-1$
 
 
 
-	public static final String ATTR_PORT= JUnitCorePlugin.PLUGIN_ID+".PORT"; //$NON-NLS-1$
+	public static final String ATTR_PORT= JUnitCorePlugin.PLUGIN_ID + ".PORT"; //$NON-NLS-1$
 
 	/**
 	 * The test method, or "" iff running the whole test type.
 	 */
-	public static final String ATTR_TEST_METHOD_NAME= JUnitCorePlugin.PLUGIN_ID+".TESTNAME"; //$NON-NLS-1$
+	public static final String ATTR_TEST_METHOD_NAME= JUnitCorePlugin.PLUGIN_ID + ".TESTNAME"; //$NON-NLS-1$
 
-	public static final String ATTR_KEEPRUNNING = JUnitCorePlugin.PLUGIN_ID+ ".KEEPRUNNING_ATTR"; //$NON-NLS-1$
+	public static final String ATTR_KEEPRUNNING= JUnitCorePlugin.PLUGIN_ID + ".KEEPRUNNING_ATTR"; //$NON-NLS-1$
+
 	/**
 	 * The launch container, or "" iff running a single test type.
 	 */
-	public static final String ATTR_TEST_CONTAINER= JUnitCorePlugin.PLUGIN_ID+".CONTAINER"; //$NON-NLS-1$
+	public static final String ATTR_TEST_CONTAINER= JUnitCorePlugin.PLUGIN_ID + ".CONTAINER"; //$NON-NLS-1$
 
-	public static final String ATTR_FAILURES_NAMES= JUnitCorePlugin.PLUGIN_ID+".FAILURENAMES"; //$NON-NLS-1$
+	public static final String ATTR_FAILURES_NAMES= JUnitCorePlugin.PLUGIN_ID + ".FAILURENAMES"; //$NON-NLS-1$
 
-	public static final String ATTR_TEST_RUNNER_KIND= JUnitCorePlugin.PLUGIN_ID+".TEST_KIND"; //$NON-NLS-1$
+	public static final String ATTR_TEST_RUNNER_KIND= JUnitCorePlugin.PLUGIN_ID + ".TEST_KIND"; //$NON-NLS-1$
+
+	public static final String ATTR_TEST_CONTAINER_FILTER_INCLUDE= JUnitCorePlugin.PLUGIN_ID + ".FILTER_INCLUDE"; //$NON-NLS-1$
+
+	public static final String ATTR_TEST_CONTAINER_FILTER_PATTERN= JUnitCorePlugin.PLUGIN_ID + ".FILTER_PATTERN"; //$NON-NLS-1$
+
+	public static final String CONTAINER_FILTER_PATTERN_DELIMITER= ";"; //$NON-NLS-1$
+
 
 	public static ITestKind getTestRunnerKind(ILaunchConfiguration launchConfiguration) {
 		try {
-			String loaderId = launchConfiguration.getAttribute(JUnitLaunchConfigurationConstants.ATTR_TEST_RUNNER_KIND, (String) null);
+			String loaderId= launchConfiguration.getAttribute(JUnitLaunchConfigurationConstants.ATTR_TEST_RUNNER_KIND, (String)null);
 			if (loaderId != null) {
 				return TestKindRegistry.getDefault().getKind(loaderId);
 			}
 		} catch (CoreException e) {
 		}
-		return  ITestKind.NULL;
+		return ITestKind.NULL;
 	}
 
 	public static IJavaProject getJavaProject(ILaunchConfiguration configuration) {
 		try {
-			String projectName= configuration.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, (String) null);
+			String projectName= configuration.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, (String)null);
 			if (projectName != null && projectName.length() > 0) {
 				return JavaCore.create(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName));
 			}

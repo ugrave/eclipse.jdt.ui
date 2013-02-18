@@ -37,6 +37,8 @@ public class JUnitJUnitTests {
 
 		suite.addTestSuite(JUnit3TestFinderTest.class);
 		suite.addTestSuite(JUnit4TestFinderTest.class);
+
+		suite.addTestSuite(TestRunFilteredTest.class);
 		//$JUnit-END$
 		return suite;
 	}
